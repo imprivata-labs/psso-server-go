@@ -43,7 +43,8 @@ func Token() http.HandlerFunc {
 		 	fmt.Println(err)
 		}
 
-		
+		fmt.Println(string(requestDump))
+
 		//get keystore for service private key and key id.
 		jwks, err := file.GetJWKS()
 		if err != nil {
