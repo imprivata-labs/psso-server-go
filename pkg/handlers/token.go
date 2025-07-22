@@ -37,6 +37,13 @@ func Token() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Request for /token")
 
+		// Dump the request to see what we have here
+		requestDump, err := httputil.DumpRequest(r, true)
+		if err != nil {
+		 	fmt.Println(err)
+		}
+
+		
 		//get keystore for service private key and key id.
 		jwks, err := file.GetJWKS()
 		if err != nil {
