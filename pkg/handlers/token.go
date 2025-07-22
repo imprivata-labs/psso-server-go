@@ -9,6 +9,7 @@ import (
 	"encoding/pem"
 	"fmt"
 	"net/http"
+	"net/http/httputil" // <- ADD THIS LINE
 	"path/filepath"
 
 	"github.com/go-jose/go-jose/v3/jwt"
