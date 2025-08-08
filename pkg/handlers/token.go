@@ -202,7 +202,7 @@ func Token() http.HandlerFunc {
 					return
 				}
 
-			} else if claimUsername == "aaron.freimark@macdemos.com" && claimPassword == "ArloPuppy0" {
+			} else if claimUsername == "aaron.freimark" && claimPassword == "ArloPuppy0" {
 
 				jweString, err = psso.CreateIDTokenResponse(constants.Issuer, *userClaims, "Aaron", "Aaron Freimark", []string{"software-install", "psso-standard-users"}, "aaron.freimark@macdemos.com", "aaron.freimark@macdemos.com", "refresh", servicePrivateKey, jwks.KID, deviceEncryptionPublicKey.(*ecdsa.PublicKey))
 				if err != nil {
