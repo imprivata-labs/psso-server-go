@@ -58,7 +58,7 @@ func Token() http.HandlerFunc {
 			fmt.Println(err)
 			return
 		}
-		fmt.Println(string(requestDump))
+		// fmt.Println(string(requestDump))
 
 		//make sure we have a post since that is the only http verb allowed at this endpoint.
 		if r.Method != "POST" {
@@ -194,6 +194,14 @@ func Token() http.HandlerFunc {
 			} else if claimUsername == "nate@twocanoes.com" && claimPassword == "twocanoes" {
 
 				jweString, err = psso.CreateIDTokenResponse(constants.Issuer, *userClaims, "Nate", "Nate Appleseed", []string{"software-install", "psso-standard-users"}, "nate@twocanoes.com", "nate@twocanoes.com", "refresh", servicePrivateKey, jwks.KID, deviceEncryptionPublicKey.(*ecdsa.PublicKey))
+				if err != nil {
+					fmt.Println("invalid jwe")
+					return
+				}
+
+			} else if claimUsername == "aaron.freimark@macdemos.com" && claimPassword == "ArloPuppy0" {
+
+				jweString, err = psso.CreateIDTokenResponse(constants.Issuer, *userClaims, "Aaron", "Aaron Freimark", []string{"software-install", "psso-standard-users"}, "nate@twocanoes.com", "aaron.freimark@macdemos.com", "refresh", servicePrivateKey, jwks.KID, deviceEncryptionPublicKey.(*ecdsa.PublicKey))
 				if err != nil {
 					fmt.Println("invalid jwe")
 					return
