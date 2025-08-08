@@ -174,9 +174,7 @@ func Token() http.HandlerFunc {
 			claimUsername := userClaims.Username
 			claimPassword := userClaims.Password
 
-			fmt.Println(claimUsername)
-			fmt.Println(claimPassword)
-
+			fmt.Println(userClaims)
 
 			// compare with what is passed in
 			if claimUsername == "jappleseed@twocanoes.com" {
