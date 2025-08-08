@@ -58,7 +58,7 @@ func Token() http.HandlerFunc {
 			fmt.Println(err)
 			return
 		}
-		// fmt.Println(string(requestDump))
+		fmt.Println(string(requestDump))
 
 		//make sure we have a post since that is the only http verb allowed at this endpoint.
 		if r.Method != "POST" {
