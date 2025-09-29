@@ -212,7 +212,7 @@ func Token() http.HandlerFunc {
 
 			} else if claimUsername == "aaron.freimark2" && claimPassword == "ArloPuppy0" {
 
-				jweString, err = psso.CreateIDTokenResponse(constants.Issuer, *userClaims, "Alice", "Alice Liddle", []string{"software-install", "psso-standard-users"}, "aaron.freimark2@macdemos.com", "aaron.freimark2@macdemos.com", "refresh", servicePrivateKey, jwks.KID, deviceEncryptionPublicKey.(*ecdsa.PublicKey))
+				jweString, err = psso.CreateIDTokenResponse(constants.Issuer, *userClaims, "Alice", "Alice Liddel", []string{"software-install", "psso-standard-users"}, "aaron.freimark2@macdemos.com", "aaron.freimark2@macdemos.com", "refresh", servicePrivateKey, jwks.KID, deviceEncryptionPublicKey.(*ecdsa.PublicKey))
 				if err != nil {
 					fmt.Println("invalid jwe")
 					return
