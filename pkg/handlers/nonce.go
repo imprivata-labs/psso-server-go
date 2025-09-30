@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/http/httputil"
 	"path/filepath"
 	"time"
 
@@ -22,6 +23,15 @@ func Nonce() http.HandlerFunc {
 	return func(w http.ResponseWriter, request *http.Request) {
 
 		fmt.Println("Request for /nonce")
+
+		// Dump the request to see what we have here
+		requestDump, errr := httputil.DumpRequest(request, true)
+		if errr != nil {
+			fmt.Println(errr)
+		}
+		fmt.Println("--------------------")
+		fmt.Println(string(requestDump))
+		fmt.Println("====================")
 
 		nonceBytes := make([]byte, 32)
 		_, err := rand.Read(nonceBytes)

@@ -9,6 +9,7 @@ import (
 	"io"
 	"math/rand"
 	"net/http"
+	"net/http/httputil"
 	"path/filepath"
 	"strings"
 	"time"
@@ -30,14 +31,15 @@ func Register() http.HandlerFunc {
 	return func(w http.ResponseWriter, requestt *http.Request) {
 
 		fmt.Println("Request for /register")
+
 		// Dump the request to see what we have here
-		// requestDump, err := httputil.DumpRequest(r, true)
-		// if err != nil {
-		// 	fmt.Println(err)
-		// }
-		// fmt.Println("--------------------")
-		// fmt.Println(string(requestDump))
-		// fmt.Println("====================")
+		requestDump, errr := httputil.DumpRequest(requestt, true)
+		if errr != nil {
+			fmt.Println(errr)
+		}
+		fmt.Println("--------------------")
+		fmt.Println(string(requestDump))
+		fmt.Println("====================")
 
 		if requestt.Method != "POST" {
 			return
