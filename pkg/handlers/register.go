@@ -27,7 +27,7 @@ type PSSORegistration struct {
 }
 
 func Register() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, requestt *http.Request) {
 
 		fmt.Println("Request for /register")
 		// Dump the request to see what we have here
@@ -35,24 +35,25 @@ func Register() http.HandlerFunc {
 		// if err != nil {
 		// 	fmt.Println(err)
 		// }
-
+		// fmt.Println("--------------------")
 		// fmt.Println(string(requestDump))
+		// fmt.Println("====================")
 
-		if r.Method != "POST" {
+		if requestt.Method != "POST" {
 			return
 		}
 
 		// Use http.MaxBytesReader to enforce a maximum read of 1MB from the
 		// response body. A request body larger than that will now result in
 		// Decode() returning a "http: request body too large" error.
-		r.Body = http.MaxBytesReader(w, r.Body, 1048576)
+		requestt.Body = http.MaxBytesReader(w, requestt.Body, 1048576)
 
 		// Setup the decoder and call the DisallowUnknownFields() method on it.
 		// This will cause Decode() to return a "json: unknown field ..." error
 		// if it encounters any extra unexpected fields in the JSON. Strictly
 		// speaking, it returns an error for "keys which do not match any
 		// non-ignored, exported fields in the destination".
-		dec := json.NewDecoder(r.Body)
+		dec := json.NewDecoder(requestt.Body)
 		dec.DisallowUnknownFields()
 
 		var request PSSORegistration

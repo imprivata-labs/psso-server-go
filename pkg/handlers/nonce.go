@@ -19,7 +19,7 @@ type NonceResponse struct {
 }
 
 func Nonce() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, request *http.Request) {
 
 		fmt.Println("Request for /nonce")
 

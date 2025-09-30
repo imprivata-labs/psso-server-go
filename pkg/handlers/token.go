@@ -35,7 +35,7 @@ func jwksPrivateKey() (*ecdsa.PrivateKey, error) {
 
 }
 func Token() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, request *http.Request) {
 		fmt.Println("Request for /token")
 
 		//get keystore for service private key and key id.
@@ -53,27 +53,29 @@ func Token() http.HandlerFunc {
 		}
 
 		// Dump the request to see what we have here
-		requestDump, err := httputil.DumpRequest(r, true)
+		requestDump, err := httputil.DumpRequest(request, true)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
+		fmt.Println("--------------------")
 		fmt.Println(string(requestDump))
+		fmt.Println("====================")
 
 		//make sure we have a post since that is the only http verb allowed at this endpoint.
-		if r.Method != "POST" {
+		if request.Method != "POST" {
 			fmt.Println("message not a POST")
 			return
 		}
 
 		//The response for has the PSSO version and the token.
-		r.ParseForm()
+		request.ParseForm()
 
 		// assertion or request?
-		requestJWTString := r.FormValue("assertion")
+		requestJWTString := request.FormValue("assertion")
 
 		if requestJWTString == "" {
-			requestJWTString = r.FormValue("request")
+			requestJWTString = request.FormValue("request")
 
 		}
 		//need to get the headers so we parse the JWT and pull out the key ID.
@@ -156,7 +158,7 @@ func Token() http.HandlerFunc {
 		deviceEncryptionKeyBlock, _ := pem.Decode(deviceEncryptionKeyBytes)
 		deviceEncryptionPublicKey, _ := x509.ParsePKIXPublicKey(deviceEncryptionKeyBlock.Bytes)
 
-		pssoVersion := r.FormValue("platform_sso_version")
+		pssoVersion := request.FormValue("platform_sso_version")
 
 		var jweString string
 		// The version of PSSO is required to be known since the format of the claims is different depending on the version

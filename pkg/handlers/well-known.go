@@ -71,14 +71,16 @@ func CheckWellKnowns() {
 }
 
 func WellKnownJWKS() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, request *http.Request) {
 
 		// // Dump the request to see what we have here
 		// requestDump, err := httputil.DumpRequest(r, true)
 		// if err != nil {
 		// 	fmt.Println(err)
 		// }
+		// fmt.Println("--------------------")
 		// fmt.Println(string(requestDump))
+		// fmt.Println("====================")
 
 		fmt.Println("Request for .well-known/jwks.json")
 		response, _ := json.Marshal(jsonJWKS)
@@ -87,15 +89,16 @@ func WellKnownJWKS() http.HandlerFunc {
 }
 
 func WellKnownAASA() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, request *http.Request) {
 
 		// Dump the request to see what we have here
-		requestDump, err := httputil.DumpRequest(r, true)
+		requestDump, err := httputil.DumpRequest(request, true)
 		if err != nil {
 			fmt.Println(err)
 		}
-
+		fmt.Println("--------------------")
 		fmt.Println(string(requestDump))
+		fmt.Println("====================")
 
 		fmt.Println("Request for .well-known/apple-app-site-association")
 		response, _ := json.Marshal(currentAASA)
